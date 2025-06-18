@@ -3,6 +3,7 @@ package com.cloud.music_cloud.Service;
 import com.cloud.music_cloud.DAOS.MusicDAO;
 import com.cloud.music_cloud.DAOS.PlayListDAO;
 import com.cloud.music_cloud.DTO.CreatePlayListDTO;
+import com.cloud.music_cloud.DTO.PlayListSearchDTO;
 import com.cloud.music_cloud.Models.Music;
 import com.cloud.music_cloud.Models.PlayList;
 import com.cloud.music_cloud.Models.Users;
@@ -30,5 +31,10 @@ public class PlayListService {
         List<Music> musicList = musicDAO.findAllById(createPlayListDTO.getMusicIds());
         PlayList playList = new PlayList(createPlayListDTO.getName() ,user , musicList , createPlayListDTO.isPrivatePlaylist() );
         return playListDAO.save(playList);
+    }
+
+    public List<PlayListSearchDTO> search(Users user, String name) {
+        List<PlayListSearchDTO> playListSearchDTOList = playListDAO.search(user.getId() , name);
+        return playListSearchDTOList;
     }
 }

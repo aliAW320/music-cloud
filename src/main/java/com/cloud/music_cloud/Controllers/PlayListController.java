@@ -1,6 +1,7 @@
 package com.cloud.music_cloud.Controllers;
 
 import com.cloud.music_cloud.DTO.CreatePlayListDTO;
+import com.cloud.music_cloud.DTO.PlayListSearchDTO;
 import com.cloud.music_cloud.Models.PlayList;
 import com.cloud.music_cloud.Models.Users;
 import com.cloud.music_cloud.Service.PlayListService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/playList")
@@ -28,6 +30,11 @@ public class PlayListController {
         Users user = userExtractor.extract(principal);
         return playListService.createPlayList( createPlayListDTO ,user);
 
+    }
+    @GetMapping("/searchPlayList/{name}")
+    public List<PlayListSearchDTO> searchPlayList(@PathVariable String name, Principal principal) {
+        Users user = userExtractor.extract(principal);
+        return playListService.search(user , name);
     }
 
 
